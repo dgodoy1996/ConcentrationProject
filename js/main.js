@@ -2,23 +2,100 @@
 let board = [
   {name: 'dog', emoji: '🐶'}, 
   {name: 'cat', emoji: '🐱'},
+  {name: 'mouse', emoji: '🐭'},
+  {name: 'bunny', emoji: '🐰'},
+  {name: 'fox', emoji: '🦊'},
+  {name: 'bear', emoji: '🐻'},
+  {name: 'panda', emoji: '🐼'},
+  {name: 'koala', emoji: '🐨'},
+  {name: 'tiger', emoji: '🐯'},
+  {name: 'lion', emoji: '🦁'},
+  {name: 'cow', emoji: '🐮'},
+  {name: 'pig', emoji: '🐷'},
+  {name: 'frog', emoji: '🐸'},
+  {name: 'monkey', emoji: '🐵'},
+  {name: 'chick', emoji: '🐤'},
+  {name: 'penguin', emoji: '🐧'},
+  {name: 'owl', emoji: '🦉'},
+  {name: 'horse', emoji: '🐴'},
   {name: 'dog', emoji: '🐶'}, 
-  {name: 'cat', emoji: '🐱'}
+  {name: 'cat', emoji: '🐱'},
+  {name: 'mouse', emoji: '🐭'},
+  {name: 'bunny', emoji: '🐰'},
+  {name: 'fox', emoji: '🦊'},
+  {name: 'bear', emoji: '🐻'},
+  {name: 'panda', emoji: '🐼'},
+  {name: 'koala', emoji: '🐨'},
+  {name: 'tiger', emoji: '🐯'},
+  {name: 'lion', emoji: '🦁'},
+  {name: 'cow', emoji: '🐮'},
+  {name: 'pig', emoji: '🐷'},
+  {name: 'frog', emoji: '🐸'},
+  {name: 'monkey', emoji: '🐵'},
+  {name: 'chick', emoji: '🐤'},
+  {name: 'penguin', emoji: '🐧'},
+  {name: 'owl', emoji: '🦉'},
+  {name: 'horse', emoji: '🐴'}
 ]
 
 
 // constants (An object with cards and another object with copies of cards)
-const findEmoji = board.findIndex(function(boardPiece) {
-  return boardPiece.name === `${board.name}`
-})
+let firstCard
+let secondCard
+let count = 1
+let matches = 0
 
 
 // cache elements (win/lose msg, timer, play again button)
 const cardEls = document.querySelectorAll('.cards > .card > .front') //for event listener
 const cardsContainerEl = document.querySelector('.cards') //for event listener
-const cardsEl = document.querySelector('.card')
 const front = document.querySelectorAll('.front')
 const back = document.querySelectorAll('.back')
+
+
+// event listeners
+cardsContainerEl.addEventListener('click', function(evt) {
+  console.log(evt.target)
+  evt.target.children[0].style.visibility = 'visible'
+  evt.target.children[1].style.visibility = 'hidden'
+  
+  if(count === 1) {
+    firstCard = evt.target.children[0]
+    
+    console.log(firstCard)
+    console.log(secondCard)
+    count++
+  }
+  else if (count === 2) {
+    secondCard = evt.target.children[0]
+    
+    console.log(firstCard)
+    console.log(secondCard)
+    if(firstCard.dataset.name === secondCard.dataset.name) {
+      console.log('you found a match')
+      firstCard.style.visibility = 'visible'
+      secondCard.style.visibility = 'visible'
+      matches++
+      if(matches === 18) {
+        alert("YOU WON 🎉")
+        
+      }
+    }
+    else if(count > 1 && firstCard !== secondCard) {
+      console.log('no match')
+      setTimeout(function() {
+        firstCard.style.visibility = 'hidden'
+        secondCard.style.visibility = 'hidden'
+      }, 1500)
+    }
+    count--
+  }
+})
+
+
+
+// functions (init, render, compare cards)
+init()
 
 front.forEach(function(card) {
   card.style.visibility = 'hidden'
@@ -33,30 +110,7 @@ cardEls.forEach(function(card, idx) {
   card.innerHTML = shuffledCards[idx].emoji
   card.dataset.name = shuffledCards[idx].name
   
-  // card.style.visibility = 'hidden'
 })
-
-//2 value array
-let valArr
-
-// event listeners (click on cards, timer, click play again)
-  cardsContainerEl.addEventListener('click', function(evt) {
-    console.log(evt.target)
-    evt.target.children[0].style.visibility = 'visible'
-    evt.target.children[1].style.visibility = 'hidden'
-     //change array for comparison
-    //push value in array (evt.target.dataset.name) from line 45/46
-    // valArr = 
-    //push second value
-    //compare values
-    //if match display boxes
-    //else if not a match hide boxes
-  })
-
-
-
-// functions (init, render, compare cards)
-init()
 
 function shuffle(board) {
   let i = board.length, j
@@ -78,65 +132,3 @@ function renderBoard() {
   return boardData
 }
 
-
-
-
-
-  
-//   {name: 'mouse', emoji: '🐭'}, {name: 'bunny', emoji: '🐰'}, {name: 'fox', emoji: '🦊'}, {name: 'bear', emoji: '🐻'},
-//   {name: 'panda', emoji: '🐼'}, {name: 'koala', emoji: '🐨'}, {name: 'tiger', emoji: '🐯'}, {name: 'lion', emoji: '🦁'}, {name: 'cow', emoji: '🐮'}, {name: 'pig', emoji: '🐷'},
-//   {name: 'frog', emoji: '🐸'}, {name: 'monkey', emoji: '🐵'}, {name: 'penguin', emoji: '🐧'}, {name: 'chick', emoji: '🐤'}, {name: 'horse', emoji: '🐴'}, {name: 'owl', emoji: '🦉'},
-//   {name: 'dog', emoji: '🐶'}, {name: 'cat', emoji: '🐱'}, {name: 'mouse', emoji: '🐭'}, {name: 'bunny', emoji: '🐰'}, {name: 'fox', emoji: '🦊'}, {name: 'bear', emoji: '🐻'},
-//   {name: 'panda', emoji: '🐼'}, {name: 'koala', emoji: '🐨'}, {name: 'tiger', emoji: '🐯'}, {name: 'lion', emoji: '🦁'}, {name: 'cow', emoji: '🐮'}, {name: 'pig', emoji: '🐷'},
-//   {name: 'frog', emoji: '🐸'}, {name: 'monkey', emoji: '🐵'}, {name: 'penguin', emoji: '🐧'}, {name: 'chick', emoji: '🐤'}, {name: 'horse', emoji: '🐴'}, {name: 'owl', emoji: '🦉'}
-// ]
-
-// let outcome
-
-
-
-
-
-
-//   board = [
-//     ['🐶', '🐱', '🐭', '🐰', '🦊', '🐻'],
-//     ['🐼', '🐨', '🐯', '🦁', '🐮', '🐷'],
-//     ['🐸', '🐵', '🐧', '🐤', '🐴', '🦉'],
-//     ['🐶', '🐱', '🐭', '🐰', '🦊', '🐻'],
-//     ['🐼', '🐨', '🐯', '🦁', '🐮', '🐷'],
-//     ['🐸', '🐵', '🐧', '🐤', '🐴', '🦉']
-//   ]
-//   outcome = null
-//   render()
-// }
-// function handleDrop(evt) {
-//   const idx = frontEl.indexOf(evt.target)
-//   frontEl.style.visibility = 'visible'
-//   render()
-// }
-
-// function renderCard() {
-
-// }
-
-// function renderBoard(board) {
-//   cardsEl.forEach(function(e), idx {
-
-//   })
-// }
-
-// function renderControls() {
-
-// }
-
-// function renderMessages() {
-
-// }
-
-// function render() {
-//     renderCard();
-//     renderBoard();
-//     renderControls();
-//     renderMessages();
-
-// }

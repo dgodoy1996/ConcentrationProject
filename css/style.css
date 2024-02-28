@@ -12,18 +12,22 @@ body {
 }
 
 header {
-    font-size: 20px;
+    font-size: 25px;
     color: black;
     letter-spacing: 3vmin;
-    margin-top: 1px;
+    margin: 2px;
+    text-align-last:  center;
+    padding-left: 25px;
+    padding-bottom: 30px;
 }
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(2, 10vmin);
-    grid-template-rows: repeat(2, 10vmin);
+    grid-template-columns: repeat(6, 10vmin);
+    grid-template-rows: repeat(6, 10vmin);
     gap: 1vmin;
     margin: 0 auto;
+    align-items: center;
 }
 
 .card {
@@ -46,6 +50,7 @@ header {
 }
 .cards > .card > .back:hover {
     visibility: hidden;
+    pointer-events: none;
 }
 
 button:hover {

@@ -18,32 +18,46 @@ header {
     margin-top: 1px;
 }
 
-#cards {
+.cards {
     display: grid;
-    grid-template-columns: repeat(6, 10vmin);
-    grid-template-rows: repeat(6, 10vmin);
+    grid-template-columns: repeat(2, 10vmin);
+    grid-template-rows: repeat(2, 10vmin);
     gap: 1vmin;
-    margin-top: 4vmin;
-    margin-bottom: 4vmin;
+    margin: 0 auto;
 }
 
-#cards > div {
+.card {
     border: 0.2vmin solid black;
+    font-size: 300%;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
 }
 
-#cards > div:hover {
+.cards > div:hover {
     transform: scale(1.1);
     transition: transform 300ms case-in;
+    visibility: visible;
+}
+
+.cards > .card > .front:hover {
+    visibility: visible;
+}
+.cards > .card > .back:hover {
+    visibility: hidden;
 }
 
 button:hover {
     color: white;
-    background-color: gray;
+    background-color: darkgray;
     border: 0.2vmin solid black;
     border-radius: 5%;
+    transform: scale(1.2);
 }
 
 #countdown {
+    visibility: hidden;
     height: 6vmin;
     width: 20vmin;
     border: .3vmin solid black;
@@ -54,3 +68,11 @@ button:hover {
     color: purple;
     margin-bottom: 10px;
 }
+
+.toggleCard {
+    transform: rotateY('180deg');
+}
+
+/* .front {
+    visibility: hidden;
+} */

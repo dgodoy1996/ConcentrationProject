@@ -18,25 +18,27 @@ header {
     margin: 2px;
     text-align-last:  center;
     padding-left: 25px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(6, 10vmin);
-    grid-template-rows: repeat(6, 10vmin);
-    gap: 1vmin;
+    grid-template-columns: repeat(4, 10vmin);
+    grid-template-rows: repeat(4, 10vmin);
+    gap: 5vmin;
     margin: 0 auto;
     align-items: center;
 }
 
 .card {
+    border-radius: 20px;
     border: 0.2vmin solid black;
     font-size: 300%;
     text-align: center;
     transform-style: preserve-3d;
     transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    background-color: lightblue;
 }
 
 .cards > div:hover {
@@ -45,12 +47,10 @@ header {
     visibility: visible;
 }
 
-.cards > .card > .front:hover {
-    visibility: visible;
-}
-.cards > .card > .back:hover {
-    visibility: hidden;
-    pointer-events: none;
+button {
+    border-radius: 5px;
+    margin-top: 50px;
+    background-color: lightblue;
 }
 
 button:hover {
@@ -62,22 +62,20 @@ button:hover {
 }
 
 #countdown {
-    visibility: hidden;
-    height: 6vmin;
-    width: 20vmin;
+    border-radius: 5px;
     border: .3vmin solid black;
     font-size: 5vmin;
     padding: 1vmin;
     justify-self: center;
     align-self: center;
-    color: purple;
-    margin-bottom: 10px;
+    color: black;
+    margin: 50px;
+    text-align: center;
+    background-color: lightblue;
 }
 
-.toggleCard {
-    transform: rotateY('180deg');
+h3 {
+    font-weight: lighter;
+    margin-top: -10px;
+    margin-bottom: 50px;
 }
-
-/* .front {
-    visibility: hidden;
-} */

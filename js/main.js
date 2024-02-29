@@ -5,45 +5,25 @@ let board = [
   {name: 'mouse', emoji: '🐭'},
   {name: 'bunny', emoji: '🐰'},
   {name: 'fox', emoji: '🦊'},
-  {name: 'bear', emoji: '🐻'},
   {name: 'panda', emoji: '🐼'},
-  {name: 'koala', emoji: '🐨'},
   {name: 'tiger', emoji: '🐯'},
   {name: 'lion', emoji: '🦁'},
-  {name: 'cow', emoji: '🐮'},
-  {name: 'pig', emoji: '🐷'},
-  {name: 'frog', emoji: '🐸'},
-  {name: 'monkey', emoji: '🐵'},
-  {name: 'chick', emoji: '🐤'},
-  {name: 'penguin', emoji: '🐧'},
-  {name: 'owl', emoji: '🦉'},
-  {name: 'horse', emoji: '🐴'},
   {name: 'dog', emoji: '🐶'}, 
   {name: 'cat', emoji: '🐱'},
   {name: 'mouse', emoji: '🐭'},
   {name: 'bunny', emoji: '🐰'},
   {name: 'fox', emoji: '🦊'},
-  {name: 'bear', emoji: '🐻'},
   {name: 'panda', emoji: '🐼'},
-  {name: 'koala', emoji: '🐨'},
   {name: 'tiger', emoji: '🐯'},
-  {name: 'lion', emoji: '🦁'},
-  {name: 'cow', emoji: '🐮'},
-  {name: 'pig', emoji: '🐷'},
-  {name: 'frog', emoji: '🐸'},
-  {name: 'monkey', emoji: '🐵'},
-  {name: 'chick', emoji: '🐤'},
-  {name: 'penguin', emoji: '🐧'},
-  {name: 'owl', emoji: '🦉'},
-  {name: 'horse', emoji: '🐴'}
-]
-
+  {name: 'lion', emoji: '🦁'}
+]  
 
 // constants (An object with cards and another object with copies of cards)
 let firstCard
 let secondCard
 let count = 1
 let matches = 0
+let timer = 180
 
 
 // cache elements (win/lose msg, timer, play again button)
@@ -51,6 +31,8 @@ const cardEls = document.querySelectorAll('.cards > .card > .front') //for event
 const cardsContainerEl = document.querySelector('.cards') //for event listener
 const front = document.querySelectorAll('.front')
 const back = document.querySelectorAll('.back')
+const playAgainBtn = document.querySelector('button')
+const counter = document.querySelector('#countdown')
 
 
 // event listeners
@@ -58,7 +40,41 @@ cardsContainerEl.addEventListener('click', function(evt) {
   console.log(evt.target)
   evt.target.children[0].style.visibility = 'visible'
   evt.target.children[1].style.visibility = 'hidden'
+  compare(evt)
+})
+
+playAgainBtn.addEventListener('click', function(evt) {
+
+  if(cardEls) {
+    for(let i = 0; i < cardEls.length; i++) {
+      cardEls[i].style.visibility = 'visible'
+      cardEls[i].style.visibility = 'hidden'
+    }
+  } 
+  console.log('button clicked')
+  countdown(3)
+})
+
+// functions (init, render, compare cards)
+init()
+
+
+front.forEach(function(card) {
+  card.style.visibility = 'hidden'
+})
+
+back.forEach(function(card) {
+  card.style.display = 'none'
+})
+
+let shuffledCards = shuffle(board)
+cardEls.forEach(function(card, idx) {
+  card.innerHTML = shuffledCards[idx].emoji
+  card.dataset.name = shuffledCards[idx].name
   
+})
+
+function compare(evt) {
   if(count === 1) {
     firstCard = evt.target.children[0]
     
@@ -76,9 +92,8 @@ cardsContainerEl.addEventListener('click', function(evt) {
       firstCard.style.visibility = 'visible'
       secondCard.style.visibility = 'visible'
       matches++
-      if(matches === 18) {
-        alert("YOU WON 🎉")
-        
+      if(matches === 8) {
+        alert("YOU DID IT!!! 🎉")
       }
     }
     else if(count > 1 && firstCard !== secondCard) {
@@ -86,31 +101,11 @@ cardsContainerEl.addEventListener('click', function(evt) {
       setTimeout(function() {
         firstCard.style.visibility = 'hidden'
         secondCard.style.visibility = 'hidden'
-      }, 1500)
+      }, 1000)
     }
     count--
   }
-})
-
-
-
-// functions (init, render, compare cards)
-init()
-
-front.forEach(function(card) {
-  card.style.visibility = 'hidden'
-})
-
-back.forEach(function(card) {
-  card.style.display = 'none'
-})
-
-let shuffledCards = shuffle(board)
-cardEls.forEach(function(card, idx) {
-  card.innerHTML = shuffledCards[idx].emoji
-  card.dataset.name = shuffledCards[idx].name
-  
-})
+}
 
 function shuffle(board) {
   let i = board.length, j
@@ -128,7 +123,31 @@ function init() {
 }
 
 function renderBoard() {
+    renderShuffle()
+}
+
+function renderShuffle() {
   const boardData = shuffle(board)
   return boardData
 }
 
+
+function countdown(minutes) {
+  let seconds = 60;
+  let mins = minutes
+  function tick() {
+      // let counter = document.getElementById("counter");
+      let current_minutes = mins-1
+      seconds--;
+      counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+      if( seconds > 0 ) {
+          setTimeout(tick, 1000);
+      } else {
+          if(mins > 1){
+              countdown(mins-1);           
+          }
+      }
+  }
+  if(matches === 8) return
+  tick();
+}

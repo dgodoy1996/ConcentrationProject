@@ -4,16 +4,6 @@ Concentration is a fun game to test your brain! Click on 2 cards at a time to se
 
 # Screenshot
 
-<img src="HTML-1.png">
-<img src="HTML-2.png">
-
-<img src="CSS-1.png">
-<img src="CSS-2.png">
-
-<img src="JS-1.png">
-<img src="JS-2.png">
-<img src="JS-3.png">
-
 <img src="GAME-1.png">
 <img src="GAME-2.png">
 

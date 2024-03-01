@@ -4,16 +4,6 @@ Concentration is a fun game to test your brain! Click on 2 cards at a time to se
 
 # Screenshot
 
-<img src="HTML-1.png">
-<img src="HTML-2.png">
-
-<img src="CSS-1.png">
-<img src="CSS-2.png">
-
-<img src="JS-1.png">
-<img src="JS-2.png">
-<img src="JS-3.png">
-
 <img src="GAME-1.png">
 <img src="GAME-2.png">
 
@@ -26,8 +16,7 @@ Concentration is a fun game to test your brain! Click on 2 cards at a time to se
 
 # Getting Started
 
-[Click to View Project Planning](your Trello url here)
-[Click to Play Connect Four!](your deployment url here)
+https://dgodoy1996.github.io/ConcentrationProject/
 
 # Next Steps
 

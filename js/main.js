@@ -26,6 +26,9 @@ let count = 1
 let matches = 0
 let timer = 180
 let gameStarted = false
+let canGuess = true
+let idx = 1
+
 
 // cache elements (front card element, back card element, card container, 
 // play button element, timer element)
@@ -35,14 +38,19 @@ const front = document.querySelectorAll('.front')
 const back = document.querySelectorAll('.back')
 const playAgainBtn = document.querySelector('button')
 const counter = document.querySelector('#countdown')
+const msg = document.querySelector('h2')
+const beatTimerMsg = document.querySelector('h3')
+const loseMsg = document.querySelector('h5')
 
 
 // event listeners (to click cards, click play button)
 cardsContainerEl.addEventListener('click', function(evt) {
-  console.log('cardsContainerEl')
-  console.log(evt.target)
+  if(evt.target.tagName === 'SECTION') return
+
+  console.log(evt.target.tagName)
   evt.target.children[0].style.visibility = 'visible'
   evt.target.children[1].style.visibility = 'hidden'
+  
   compare(evt)
 })
 
@@ -59,6 +67,7 @@ playAgainBtn.addEventListener('click', function(evt) {
   gameStarted = true
   checkGameStart()
 })
+
 
 // functions (init, render, compare cards, timer)
 
@@ -79,6 +88,7 @@ cardEls.forEach(function(card, idx) {
   
 })
 
+// function to compare the first and second cards
 function compare(evt) {
   // count counts the number of clicks
   if(count === 1) {
@@ -113,7 +123,8 @@ function compare(evt) {
       matches++
       // when there are 8 matches send an alert
       if(matches === 8) {
-        alert("YOU DID IT!!! 🎉")
+        msg.style.visibility = 'visible'
+        beatTimerMsg.style.visibility = 'hidden'
         gameStarted = false
       }
     }
@@ -138,27 +149,34 @@ function compare(evt) {
 
 // function to shuffle board array
 function shuffle(board) {
-  let i = board.length, j
+  let i = board.length
+  let j
   while(i > 0) {
+    // j is set to a random number from 0 to i
     j = Math.floor(Math.random() * i)
     i--
     
-    [board[i], board[j]] = [board[j], board[i]]
+    // temp is a temporary number holding board[i] to then make board[j]
+    // equal that value
+    let temp = board[i]
+    board[i] = board[j]
+    board[j] = temp
   }
   return board
 }
 
 // initial function
 function init() {
-
   renderBoard()
   checkGameStart()
 }
 
 function checkGameStart() {
+  // if gameStarted is false, cards can't be clicked
   if(gameStarted === false) {
     cardsContainerEl.style.pointerEvents = 'none'
   }
+  // cards can be clicked when gameStarted is true
   else {
     cardsContainerEl.style.pointerEvents = 'auto'
   }
@@ -177,24 +195,29 @@ function renderShuffle() {
 }
 
 // timer function
+
+// pass in the timer minutes
 function countdown(minutes) {
   let seconds = 60;
   let mins = minutes
   function tick() {
-      let current_minutes = mins-1
-      seconds--;
-      counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-      if( seconds > 0 ) {
-          setTimeout(tick, 1000);
-        } else if (mins > 1){
-              countdown(mins-1);           
-          
-        }
-        else{
-          alert("GAME OVER")
-          gameStarted = false
-        }
-      }
+    let current_minutes = mins - 1
+    seconds--
+
+    // counter element in 00:00
+    counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds)
+    if( seconds > 0 ) {
+        setTimeout(tick, 1000)
+      } 
+    else if (mins > 1){
+          countdown(mins-1)     
+    }
+    else{
+      counter.style.visibility = 'hidden'
+      loseMsg.style.visibility = 'visible'
+      gameStarted = false
+    }
+  }
   if(matches === 8) return
   tick();
 }

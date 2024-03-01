@@ -125,6 +125,8 @@ function compare(evt) {
       if(matches === 8) {
         msg.style.visibility = 'visible'
         beatTimerMsg.style.visibility = 'hidden'
+        loseMsg.style.visibility = 'hidden'
+        counter.style.visibility = 'hidden'
         gameStarted = false
       }
     }

@@ -71,6 +71,12 @@ playAgainBtn.addEventListener('click', function(evt) {
   timer = 1
   countdown(timer)
 
+  shuffleCards = renderShuffle()
+  cardEls.forEach(function(card, idx) {
+    card.innerHTML = shuffledCards[idx].emoji
+    card.dataset.name = shuffledCards[idx].name
+  })
+
   if(cardEls) {
     for(let i = 0; i < cardEls.length; i++) {
       cardEls[i].style.visibility = 'visible'
@@ -81,8 +87,6 @@ playAgainBtn.addEventListener('click', function(evt) {
 
   gameStarted = true
   checkGameStart()
-
-  stopped = false
 })
 
 

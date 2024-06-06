@@ -38,7 +38,7 @@ const front = document.querySelectorAll('.front')
 const back = document.querySelectorAll('.back')
 const playAgainBtn = document.querySelector('button')
 const counter = document.querySelector('#countdown')
-const msg = document.querySelector('h2')
+const youDidItMsg = document.querySelector('h2')
 const beatTimerMsg = document.querySelector('h3')
 const loseMsg = document.querySelector('h5')
 
@@ -63,6 +63,14 @@ cardsContainerEl.addEventListener('click', function(evt) {
 })
 
 playAgainBtn.addEventListener('click', function(evt) {
+  loseMsg.style.visibility = 'hidden'
+  youDidItMsg.style.visibility = 'hidden'
+  beatTimerMsg.style.visibility = 'visible'
+  counter.style.visibility = 'visible'
+
+  timer = 1
+  countdown(timer)
+
   if(cardEls) {
     for(let i = 0; i < cardEls.length; i++) {
       cardEls[i].style.visibility = 'visible'
@@ -70,10 +78,11 @@ playAgainBtn.addEventListener('click', function(evt) {
     }
   } 
   console.log('button clicked')
-  countdown(1)
 
   gameStarted = true
   checkGameStart()
+
+  stopped = false
 })
 
 
@@ -131,7 +140,7 @@ function compare(evt) {
       matches++
       // when there are 8 matches send an alert
       if(matches === 8) {
-        msg.style.visibility = 'visible'
+        youDidItMsg.style.visibility = 'visible'
         beatTimerMsg.style.visibility = 'hidden'
         loseMsg.style.visibility = 'hidden'
         counter.style.visibility = 'hidden'
@@ -210,12 +219,19 @@ function renderShuffle() {
 function countdown(minutes) {
   let seconds = 60;
   let mins = minutes
+
   function tick() {
     let current_minutes = mins - 1
     seconds--
 
     // counter element in 00:00
     counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds)
+    
+    if(youDidItMsg.style.visibility === 'visible') {
+      mins = minutes
+      seconds = 60
+    }
+    
     if( seconds > 0 ) {
         setTimeout(tick, 1000)
       } 

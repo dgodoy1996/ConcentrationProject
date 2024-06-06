@@ -28,7 +28,7 @@ let timer = 180
 let gameStarted = false
 let canGuess = true
 let idx = 1
-
+let canClick = true
 
 // cache elements (front card element, back card element, card container, 
 // play button element, timer element)
@@ -45,13 +45,21 @@ const loseMsg = document.querySelector('h5')
 
 // event listeners (to click cards, click play button)
 cardsContainerEl.addEventListener('click', function(evt) {
-  if(evt.target.tagName === 'SECTION') return
+  if(!canClick || evt.target.tagName === 'SECTION') return
 
   console.log(evt.target.tagName)
   evt.target.children[0].style.visibility = 'visible'
   evt.target.children[1].style.visibility = 'hidden'
   
   compare(evt)
+
+  if(idx % 2 === 0) {
+    canClick = false
+    setTimeout(function() {
+      canClick = true
+    }, 1000)
+  }
+  idx++
 })
 
 playAgainBtn.addEventListener('click', function(evt) {
@@ -214,7 +222,7 @@ function countdown(minutes) {
     else if (mins > 1){
           countdown(mins-1)     
     }
-    else{
+    else {
       counter.style.visibility = 'hidden'
       loseMsg.style.visibility = 'visible'
       gameStarted = false

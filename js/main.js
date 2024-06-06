@@ -224,8 +224,10 @@ function countdown(minutes) {
     }
     else {
       counter.style.visibility = 'hidden'
-      loseMsg.style.visibility = 'visible'
-      gameStarted = false
+      if (matches < 8) {
+        loseMsg.style.visibility = 'visible'
+        gameStarted = false
+      }
     }
   }
   if(matches === 8) return

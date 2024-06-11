@@ -36,6 +36,15 @@ h2 {
     align-items: center;
 }
 
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 10vmin);
+    grid-template-rows: repeat(4, 10vmin);
+    gap: 5vmin;
+    margin: 0 auto;
+    align-items: center;
+}
+
 .card {
     border-radius: 20px;
     border: 0.2vmin solid black;

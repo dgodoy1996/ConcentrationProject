@@ -29,6 +29,7 @@ let gameStarted = false
 let canGuess = true
 let idx = 1
 let canClick = true
+let timerTimeout
 
 // cache elements (front card element, back card element, card container, 
 // play button element, timer element)
@@ -63,6 +64,7 @@ cardsContainerEl.addEventListener('click', function(evt) {
 })
 
 playAgainBtn.addEventListener('click', function(evt) {
+  clearInterval(timerTimeout)
   loseMsg.style.visibility = 'hidden'
   youDidItMsg.style.visibility = 'hidden'
   beatTimerMsg.style.visibility = 'visible'
@@ -71,7 +73,7 @@ playAgainBtn.addEventListener('click', function(evt) {
   timer = 1
   countdown(timer)
 
-  shuffleCards = renderShuffle()
+  const shuffleCards = renderShuffle()
   cardEls.forEach(function(card, idx) {
     card.innerHTML = shuffledCards[idx].emoji
     card.dataset.name = shuffledCards[idx].name
@@ -84,7 +86,8 @@ playAgainBtn.addEventListener('click', function(evt) {
     }
   } 
   console.log('button clicked')
-
+  matches = 0
+  count = 1
   gameStarted = true
   checkGameStart()
 })
@@ -237,7 +240,7 @@ function countdown(minutes) {
     }
     
     if( seconds > 0 ) {
-        setTimeout(tick, 1000)
+        timerTimeout = setTimeout(tick, 1000)
       } 
     else if (mins > 1){
           countdown(mins-1)     
